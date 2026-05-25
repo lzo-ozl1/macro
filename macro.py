@@ -16,103 +16,119 @@ def macro_loop():
     for _ in range(30):
         if not is_running: return
         time.sleep(0.1)
-        
+    
+    last_key_time = 0  # delete/end/pagedown 마지막 입력 시각 (0 = 처음엔 바로 실행)
+    
     while is_running:
+        current_time = time.time()
+        
         # ==================================================
-        # 1부: 쉬프트 30초 -> F키 -> 왼쪽 -> 쉬프트 10초 -> 오른쪽
+        # 2분마다: Ctrl 5초 → Delete/End/PageDown → 왼쪽 → Ctrl 5초 → 오른쪽
         # ==================================================
-        
-        # [1] 쉬프트 30초 누르기
-        if not is_running: return
-        status_label.config(text="[1] 쉬프트 5초 누르는 중...", fg="green")
-        keyboard.press(Key.shift)
-        for _ in range(50): 
-            if not is_running:
-                keyboard.release(Key.shift)
-                return
+        if current_time - last_key_time >= 120:  # 120초 = 2분
+            
+            # [1] Ctrl 5초 누르기
+            if not is_running: return
+            status_label.config(text="[1] Ctrl 5초 누르는 중...", fg="green")
+            keyboard.press(Key.ctrl)
+            for _ in range(50):
+                if not is_running:
+                    keyboard.release(Key.ctrl)
+                    return
+                time.sleep(0.1)
+            keyboard.release(Key.ctrl)
+            time.sleep(0.5)
+            
+            # [2] Delete → End → PageDown 입력
+            if not is_running: return
+            status_label.config(text="[2] Delete / End / PageDown 입력", fg="blue")
+            keyboard.press(Key.delete)
+            time.sleep(0.2)
+            keyboard.release(Key.delete)
             time.sleep(0.1)
-        keyboard.release(Key.shift)
-        time.sleep(0.5)
-        
-        # [2] F 키 입력 (0.2초)
-        if not is_running: return
-        status_label.config(text="[2] F 키 입력", fg="blue")
-        keyboard.press('f')
-        time.sleep(0.2)
-        keyboard.release('f')
-        time.sleep(0.3)
-        
-        # [3] 왼쪽 방향키 입력 (0.2초)
-        if not is_running: return
-        status_label.config(text="[3] 왼쪽 방향키 입력", fg="blue")
-        keyboard.press(Key.left)
-        time.sleep(0.2)
-        keyboard.release(Key.left)
-        time.sleep(0.5)
-        
-        # [4] 쉬프트 10초 누르기
-        if not is_running: return
-        status_label.config(text="[4] 쉬프트 5초 누르는 중...", fg="green")
-        keyboard.press(Key.shift)
-        for _ in range(50): # 10초 대기
-            if not is_running:
-                keyboard.release(Key.shift)
-                returnㄹ
+            keyboard.press(Key.end)
+            time.sleep(0.2)
+            keyboard.release(Key.end)
             time.sleep(0.1)
-        keyboard.release(Key.shift)
-        time.sleep(0.5)
-        
-        # [5] 오른쪽 방향키 입력 (0.1초)
-        if not is_running: return
-        status_label.config(text="[5] 오른쪽 방향키 입력", fg="blue")
-        keyboard.press(Key.right)
-        time.sleep(0.1)
-        keyboard.release(Key.right)
-        time.sleep(0.5)
-
-        # ==================================================
-        # 2부: 쉬프트 30초 -> 왼쪽 -> 쉬프트 10초 -> 오른쪽 (루프)
-        # ==================================================
-        
-        # [6] 쉬프트 30초 누르기
-        if not is_running: return
-        status_label.config(text="[6] 쉬프트 5초 누르는 중...", fg="green")
-        keyboard.press(Key.shift)
-        for _ in range(50): 
-            if not is_running:
-                keyboard.release(Key.shift)
-                return
+            keyboard.press(Key.page_down)
+            time.sleep(0.2)
+            keyboard.release(Key.page_down)
+            time.sleep(0.3)
+            
+            # [3] 왼쪽 방향키 입력
+            if not is_running: return
+            status_label.config(text="[3] 왼쪽 방향키 입력", fg="blue")
+            keyboard.press(Key.left)
             time.sleep(0.1)
-        keyboard.release(Key.shift)
-        time.sleep(0.5)
-        
-        # [7] 왼쪽 방향키 입력 (0.2초)
-        if not is_running: return
-        status_label.config(text="[7] 왼쪽 방향키 입력", fg="blue")
-        keyboard.press(Key.left)
-        time.sleep(0.2)
-        keyboard.release(Key.left)
-        time.sleep(0.5)
-        
-        # [8] 쉬프트 10초 누르기
-        if not is_running: return
-        status_label.config(text="[8] 쉬프트 5초 누르는 중...", fg="green")
-        keyboard.press(Key.shift)
-        for _ in range(50): # 10초 대기
-            if not is_running:
-                keyboard.release(Key.shift)
-                return
+            keyboard.release(Key.left)
+            time.sleep(0.5)
+            
+            # [4] Ctrl 5초 누르기
+            if not is_running: return
+            status_label.config(text="[4] Ctrl 5초 누르는 중...", fg="green")
+            keyboard.press(Key.ctrl)
+            for _ in range(50):
+                if not is_running:
+                    keyboard.release(Key.ctrl)
+                    return
+                time.sleep(0.1)
+            keyboard.release(Key.ctrl)
+            time.sleep(0.5)
+            
+            # [5] 오른쪽 방향키 입력
+            if not is_running: return
+            status_label.config(text="[5] 오른쪽 방향키 입력", fg="blue")
+            keyboard.press(Key.right)
             time.sleep(0.1)
-        keyboard.release(Key.shift)
-        time.sleep(0.5)
+            keyboard.release(Key.right)
+            time.sleep(0.5)
+            
+            last_key_time = time.time()  # 타이머 리셋
         
-        # [9] 오른쪽 방향키 입력 (0.2초) -> 이후 다시 [1]번으로 루프
-        if not is_running: return
-        status_label.config(text="[9] 오른쪽 방향키 입력 (루프)", fg="blue")
-        keyboard.press(Key.right)
-        time.sleep(0.1)
-        keyboard.release(Key.right)
-        time.sleep(0.5)
+        else:
+            # ==================================================
+            # 평소: Ctrl 5초 → 왼쪽 → Ctrl 5초 → 오른쪽 (루프)
+            # ==================================================
+            
+            # [6] Ctrl 5초 누르기
+            if not is_running: return
+            status_label.config(text="[6] Ctrl 5초 누르는 중...", fg="green")
+            keyboard.press(Key.ctrl)
+            for _ in range(50):
+                if not is_running:
+                    keyboard.release(Key.ctrl)
+                    return
+                time.sleep(0.1)
+            keyboard.release(Key.ctrl)
+            time.sleep(0.5)
+            
+            # [7] 왼쪽 방향키 입력
+            if not is_running: return
+            status_label.config(text="[7] 왼쪽 방향키 입력", fg="blue")
+            keyboard.press(Key.left)
+            time.sleep(0.2)
+            keyboard.release(Key.left)
+            time.sleep(0.5)
+            
+            # [8] Ctrl 5초 누르기
+            if not is_running: return
+            status_label.config(text="[8] Ctrl 5초 누르는 중...", fg="green")
+            keyboard.press(Key.ctrl)
+            for _ in range(50):
+                if not is_running:
+                    keyboard.release(Key.ctrl)
+                    return
+                time.sleep(0.1)
+            keyboard.release(Key.ctrl)
+            time.sleep(0.5)
+            
+            # [9] 오른쪽 방향키 입력 → 다시 루프
+            if not is_running: return
+            status_label.config(text="[9] 오른쪽 방향키 입력 (루프)", fg="blue")
+            keyboard.press(Key.right)
+            time.sleep(0.1)
+            keyboard.release(Key.right)
+            time.sleep(0.5)
 
 def start_macro():
     global is_running, macro_thread
@@ -136,7 +152,7 @@ def stop_macro():
 
 # --- GUI 창 설정 ---
 root = tk.Tk()
-root.title("맥 매크로 v4.0")
+root.title("맥 매크로 v5.0")
 root.geometry("320x130")
 root.resizable(False, False)
 root.attributes("-topmost", True)
