@@ -27,11 +27,11 @@ def macro_loop():
         # ==================================================
         if current_time - last_key_time >= 120:  # 120초 = 2분
             
-            # [1] Ctrl 5초 누르기
+            # [1] Ctrl 4초 누르기
             if not is_running: return
-            status_label.config(text="[1] Ctrl 5초 누르는 중...", fg="green")
+            status_label.config(text="[1] Ctrl 4초 누르는 중...", fg="green")
             keyboard.press(Key.ctrl)
-            for _ in range(50):
+            for _ in range(40):
                 if not is_running:
                     keyboard.release(Key.ctrl)
                     return
@@ -59,15 +59,15 @@ def macro_loop():
             if not is_running: return
             status_label.config(text="[3] 왼쪽 방향키 입력", fg="blue")
             keyboard.press(Key.left)
-            time.sleep(0.1)
+            time.sleep(0.2)
             keyboard.release(Key.left)
             time.sleep(0.5)
             
-            # [4] Ctrl 5초 누르기
+            # [4] Ctrl 4초 누르기
             if not is_running: return
-            status_label.config(text="[4] Ctrl 5초 누르는 중...", fg="green")
+            status_label.config(text="[4] Ctrl 4초 누르는 중...", fg="green")
             keyboard.press(Key.ctrl)
-            for _ in range(50):
+            for _ in range(40):
                 if not is_running:
                     keyboard.release(Key.ctrl)
                     return
@@ -79,7 +79,7 @@ def macro_loop():
             if not is_running: return
             status_label.config(text="[5] 오른쪽 방향키 입력", fg="blue")
             keyboard.press(Key.right)
-            time.sleep(0.1)
+            time.sleep(0.2)
             keyboard.release(Key.right)
             time.sleep(0.5)
             
@@ -90,11 +90,11 @@ def macro_loop():
             # 평소: Ctrl 5초 → 왼쪽 → Ctrl 5초 → 오른쪽 (루프)
             # ==================================================
             
-            # [6] Ctrl 5초 누르기
+            # [6] Ctrl 4초 누르기
             if not is_running: return
-            status_label.config(text="[6] Ctrl 5초 누르는 중...", fg="green")
+            status_label.config(text="[6] Ctrl 4초 누르는 중...", fg="green")
             keyboard.press(Key.ctrl)
-            for _ in range(50):
+            for _ in range(40):
                 if not is_running:
                     keyboard.release(Key.ctrl)
                     return
@@ -110,11 +110,11 @@ def macro_loop():
             keyboard.release(Key.left)
             time.sleep(0.5)
             
-            # [8] Ctrl 5초 누르기
+            # [8] Ctrl 4초 누르기
             if not is_running: return
-            status_label.config(text="[8] Ctrl 5초 누르는 중...", fg="green")
+            status_label.config(text="[8] Ctrl 4초 누르는 중...", fg="green")
             keyboard.press(Key.ctrl)
-            for _ in range(50):
+            for _ in range(40):
                 if not is_running:
                     keyboard.release(Key.ctrl)
                     return
@@ -126,7 +126,7 @@ def macro_loop():
             if not is_running: return
             status_label.config(text="[9] 오른쪽 방향키 입력 (루프)", fg="blue")
             keyboard.press(Key.right)
-            time.sleep(0.1)
+            time.sleep(0.2)
             keyboard.release(Key.right)
             time.sleep(0.5)
 
